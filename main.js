@@ -4,16 +4,6 @@ import { filterTable, sortTable, clearTable } from './table.js';
 window.onload = () => {
   fetchProjects();
 
-  // const container = document.getElementById('body');
-  // const rect = container.getBoundingClientRect();
-
-  // // Вычисляем размеры контейнера
-  // const width = Math.ceil(rect.width);
-  // const height = Math.ceil(rect.height);
-  // console.log(width + ' : ' + height);
-  // // Устанавливаем размеры фрейма
-  //BX24.resizeWindow(3000, 1600);
-
   var selectBody = document.getElementById('projectSelect');
   const tasksHeaderProject = document.getElementById('tasksHeaderProject');
   selectBody.addEventListener('change', () => {
