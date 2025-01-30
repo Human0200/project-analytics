@@ -4,6 +4,7 @@ var allocatedProjectTime;
 //Получение списка задач при выборе нового проекта
 export function fetchTasksByProject(projectId) {
   projectID = projectId;
+  // Получение списка всех задач
   BX24.callMethod(
     'tasks.task.list',
     {
@@ -16,6 +17,7 @@ export function fetchTasksByProject(projectId) {
       fillResponsibles(res.answer.result.tasks);
     },
   );
+
   //Запрос на получение данные, которые хранят установленное планируемое время
   BX24.callMethod(
     'app.option.get',
@@ -31,10 +33,11 @@ export function fetchTasksByProject(projectId) {
         Object.assign(projectsData, totalTimes);
         const totalTime = projectsData[projectId];
         if (totalTime == undefined) {
-          document.getElementById('totalTime').value = parseFloat('0').toFixed(2); // Устанавливаем значение в input
+          document.getElementById('tasksHeaderTime').innerHTML = parseFloat('0').toFixed(2); // Устанавливаем значение в input
         } else {
           allocatedProjectTime = parseFloat(totalTime).toFixed(2);
-          document.getElementById('totalTime').value = allocatedProjectTime; // Устанавливаем значение в input
+          const element = document.getElementById('tasksHeaderTime');
+          element.innerText = allocatedProjectTime; // Устанавливаем значение в input
         }
       }
     },
@@ -62,7 +65,7 @@ export function fillResponsibles(tasks) {
 // Функция заполнения таблицы задачами
 export function processTasks(tasks) {
   const tbody = document.querySelector('#tasksTable tbody');
-  const projectSelect = document.getElementById('projectSelect');
+  const projectSelect = document.getElementById('projectsList');
   let totalTimeEstimate = 0;
   let totalTimeSpent = 0;
 
@@ -82,11 +85,11 @@ export function processTasks(tasks) {
 
     const row = document.createElement('tr');
     row.innerHTML = `
-        <td>${task.title}</td>
         <td>${projectSelect.options[projectSelect.selectedIndex].text}</td>
+        <td>${task.title}</td>
+        <td>${task.responsible.name}</td>
         <td>${timeInHours.toFixed(2)}</td> <!-- Отображаем время с двумя знаками после запятой -->
         <td>${timespent.toFixed(2)}</td> <!-- Отображаем время с двумя знаками после запятой -->
-        <td>${task.responsible.name}</td>
     `;
     row.style.cursor = 'pointer';
 
@@ -112,25 +115,19 @@ export function processTasks(tasks) {
   totalRow.innerHTML = `
     <td><strong>Итого</strong></td>
     <td></td>
+    <td></td>
     <td><strong>${totalTimeEstimate.toFixed(2)}</strong></td>
     <td><strong>${totalTimeSpent.toFixed(2)}</strong></td>
-    <td></td>
   `;
   tbody.appendChild(totalRow);
 
   // Обновление итогового времени
-  const totalTime = document.getElementById('totalTime');
+  const totalTime = document.getElementById('tasksHeaderTime');
   if (totalTimeSpent > allocatedProjectTime) {
     totalTime.style.background = 'red';
   } else {
     totalTime.style.background = 'white';
   }
-
-  const header = document.getElementById('tasksHeaderTime');
-  const totalTimeCopy = totalTime.cloneNode(true);
-  header.innerHTML = '';
-  totalTimeCopy.disabled = 'true';
-  header.appendChild(totalTimeCopy);
 
   createPieChart(timeByResponsible);
   createBarChart(timeByResponsible);
@@ -227,21 +224,3 @@ function createBarChart(timeByResponsible) {
     },
   });
 }
-
-//Сохранение выделенного времени на проекты
-document.getElementById('saveTimeButton').addEventListener('click', () => {
-  const totalTime = document.getElementById('totalTime').value;
-  projectsData[projectID] = totalTime;
-  BX24.callMethod(
-    'app.option.set',
-    {
-      name: 'total_allocated_times',
-      total_allocated_times: JSON.stringify(projectsData),
-    },
-    function (result) {
-      if (result.error()) console.error(result.error());
-      else console.log(result.data());
-      fetchTasksByProject(projectID);
-    },
-  );
-});

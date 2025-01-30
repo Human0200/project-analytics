@@ -9,7 +9,7 @@
 </head>
 
 <body id="body">
-  <!-- Кнопки переключения вкладок-->
+
   <div style="position:relative;">
     <button id="showSettings" class="menu-button">Настройки
       <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -39,7 +39,7 @@
       <label for="projectSelect">Выберите проект:</label>
       <div class="select-container">
         <select id="projectSelect" class="project-select">
-          <option value="">-- Выберите проект --</option>
+          <option value="">Выберите проект</option>
           <!-- Опции проектов будут добавлены динамически -->
         </select>
       </div>
@@ -70,9 +70,8 @@
       <h2 class="tasks-header-project" id="tasksHeaderProject"></h2>
     </div>
     <div class="tasks-header-time">
-      <h3>Планируемое время проекта:</h3>
+      <h3 style="margin-bottom:0px; margin-right:24px">Планируемое время проекта:</h3>
       <h3 class="tasks-header-time-value" id="tasksHeaderTime"></h3>
-
     </div>
     <p>Выберите сотрудника для фильтрации</p>
     <div class="select-container">
@@ -80,14 +79,19 @@
         <option> Выберите сотрудника</option>
       </select>
     </div>
+    <div class="select-container">
+      <select id="projectsList" class="projects-select">
+        <option value=""> Выберите проект</option>
+      </select>
+    </div>
     <table id="tasksTable" class="tasks-table">
       <thead>
         <tr>
-          <th>Задача</th>
           <th>Проект</th>
+          <th>Задача</th>
+          <th>Исполнитель</th>
           <th>Затраченное время (часы) планируемое</th>
           <th>Затраченное время (часы) фактическое</th>
-          <th>Исполнитель</th>
         </tr>
       </thead>
       <tbody></tbody>

@@ -1,7 +1,7 @@
 export function clearTable() {
   const tbody = document.querySelector('#tasksTable tbody');
   tbody.innerHTML = '';
-  document.getElementById('totalTime').textContent = 0;
+  document.getElementById('tasksHeaderTime').innerHTML = '';
 
   const pieChartCanvas = document.getElementById('timeChart');
   if (pieChartCanvas) {
@@ -23,12 +23,14 @@ export function clearTable() {
   }
 }
 
+export function destroyCharts() {}
+
 export function filterTable(value) {
   const tbody = document.querySelector('#tasksTable tbody');
   const rows = tbody.getElementsByTagName('tr');
   console.log(value);
   for (let i = 0; i < rows.length - 1; i++) {
-    const responsibleCell = rows[i].cells[4];
+    const responsibleCell = rows[i].cells[2];
     if (responsibleCell) {
       const cellText = responsibleCell.innerText;
       const isVisible = value === 'Выберите сотрудника' || cellText.includes(value);

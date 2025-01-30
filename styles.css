@@ -96,6 +96,7 @@ button {
 }
 
 .tasks-header-time {
+  align-items: center;
   margin-top: 6px;
   display: flex;
 }
@@ -176,8 +177,10 @@ input:disabled {
   width: 100px;
 }
 
-.tasks-header-time-value input {
+.tasks-header-time-value {
   font-size: 16px;
+  padding: 4px;
+  margin-bottom: 0px;
   font-weight: bold;
 }
 
