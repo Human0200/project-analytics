@@ -10,7 +10,10 @@
 
 <body id="body">
 
-  <div style="position:relative;">
+  <div class="menu">
+    <button id="showManual" class="menu-manual-button">Инструкция
+
+    </button>
     <button id="showSettings" class="menu-button">Настройки
       <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
         <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
@@ -28,14 +31,13 @@
         d="M24 13.616v-3.232c-1.651-.587-2.693-2.18-2.303-3.914l-2.673-1.544c-.61.985-1.707 1.641-2.924 1.641-1.217 0-2.314-.656-2.924-1.641l-2.673 1.544c.39 1.734-.652 3.327-2.303 3.914v3.232c1.651.587 2.693 2.18 2.303 3.914l2.673 1.544c.61-.985 1.707-1.641 2.924-1.641 1.217 0 2.314.656 2.924 1.641l2.673-1.544c-.39-1.734.652-3.327 2.303-3.914zm-12 2.384c-2.209 0-4-1.791-4-4s1.791-4 4-4 4 1.791 4 4-1.791 4-4 4z"
         fill="currentColor" />
       </svg>
-
     </button>
+
+
   </div>
   <div id="settingsTab" class="modal">
     <div class="modal-content">
       <h2>Настройки</h2>
-
-      <!-- Выбор проекта -->
       <label for="projectSelect">Выберите проект:</label>
       <div class="select-container">
         <select id="projectSelect" class="project-select">
@@ -60,6 +62,11 @@
           </g>
         </svg>
       </span>
+    </div>
+  </div>
+
+  <div class="modal-manual" id="ModalManual">
+    <div class="modal-manual-content">
     </div>
   </div>
 

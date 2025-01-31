@@ -67,16 +67,25 @@ responsiblesBody.addEventListener('change', () => {
   filterTable(responsiblesBody.options[responsiblesBody.selectedIndex].text);
 });
 
-var btn = document.getElementById('showSettings');
-btn.addEventListener('click', () => {
+const settingsButton = document.getElementById('showSettings');
+settingsButton.addEventListener('click', () => {
   const modal = document.getElementById('settingsTab');
   modal.style.display = 'block';
 });
 
+const showManualButton = document.getElementById('showManual');
+showManualButton.addEventListener('click', () => {
+  const modal = document.getElementById('ModalManual');
+  modal.style.display = 'block';
+});
+
 window.onclick = function (event) {
-  const modal = document.getElementById('settingsTab');
-  if (event.target == modal) {
-    modal.style.display = 'none';
+  const modalSettings = document.getElementById('settingsTab');
+  const modalManual = document.getElementById('ModalManual');
+  if (event.target == modalSettings) {
+    modalSettings.style.display = 'none';
+  } else if (event.target == modalManual) {
+    modalManual.style.display = 'none';
   }
 };
 
